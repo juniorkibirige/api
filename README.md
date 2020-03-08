@@ -1,6 +1,6 @@
 
 
-![Build Status](https://circleci.com/gh/squareborg/vendormachine-api.png?circle-token=:circle-token)
+Tests: ![Build Status](https://circleci.com/gh/squareborg/vendormachine-api.png?circle-token=:circle-token)
 
 # Vendor Machine
 
