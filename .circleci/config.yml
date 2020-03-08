@@ -7,7 +7,7 @@ jobs: # a collection of steps
     steps: # a set of executable commands
       - checkout
 
-      - run: sudo apt update --fix-missing
+      - run: sudo apt update --fix-missing || sudo apt update --fix-missing
       - run: sudo apt install -y libsqlite3-dev zlib1g-dev libpng-dev libjpeg62-turbo-dev libfreetype6-dev
       - run: sudo docker-php-ext-install zip
       - run: sudo docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
