@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\DTO\UserData;
+use App\DTO\VendorData;
 use App\Http\Controllers\Controller;
 use App\Transformers\VendorTransformer;
 use App\Actions\vendors\CreateVendorAction;
@@ -40,8 +40,8 @@ class VendorsController extends Controller
     public function store(Request $request, CreateVendorAction $createVendorAction)
     {
         try {
-            $vendor = $createVendorAction($request->all());
-            return fractal()->item($vendor, new VendorTransformer());
+            $vendor = $createVendorAction(VendorData::fromRequest($request));
+            return fractal()->item($vendor, new VendorTransformer())->respond(Response::HTTP_CREATED);
         } catch (\Exception $e) {
             abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
         }
