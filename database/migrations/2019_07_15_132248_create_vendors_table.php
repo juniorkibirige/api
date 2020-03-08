@@ -18,7 +18,7 @@ class CreateVendorsTable extends Migration
             $table->uuid('user_id');
             $table->string('name');
             $table->string('tagline')->nullable();
-            $table->boolean('is_supsended')->default(false);
+            $table->boolean('is_suspended')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
