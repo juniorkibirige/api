@@ -34,7 +34,7 @@ class VendorsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @param CreateUserAction $createUserAction
+     * @param CreateVendorAction $createVendorAction
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, CreateVendorAction $createVendorAction)

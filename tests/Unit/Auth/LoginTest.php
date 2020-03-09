@@ -21,6 +21,8 @@ class LoginTest extends TestCase
             'password' => 'Password?1',
         ]);
 
+        dd($response);
+
         $response->assertOk()->assertJsonStructure(['access_token']);
     }
 
