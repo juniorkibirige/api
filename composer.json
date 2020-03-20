@@ -10,7 +10,7 @@
     "repositories": {
         "sqware-auth": {
             "type": "path",
-            "url": "../packages/vendormachine-auth",
+            "url": "../packages/sqware-auth",
             "options": {
             "symlink": true
             }
