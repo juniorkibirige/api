@@ -37,4 +37,10 @@ Route::prefix('v1.0')
 
     Route::post('users/{user}/suspend', 'UsersController@suspend')->name('users.suspend');
     Route::post('users/{user}/unsuspend', 'UsersController@unsuspend')->name('users.unsuspend');
+
+    Route::group(['prefix' => 'settings'], function () {
+        Route::get('/', 'Settings\AdminSettingsController@index');
+        Route::get('/{key}', 'Settings\AdminSettingsController@show')->name('setting.show');
+        Route::put('/{key}', 'Settings\AdminSettingsController@update')->name('setting.update');
+    });
 });
