@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "33b8e27df025d3b34700a67ac003798d",
+    "content-hash": "e803541ba0f4e1932f13f94a1ae3bb30",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1228,16 +1228,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v7.2.0",
+            "version": "v7.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "77110b6434e65b10b655ab92e645e830b1a79caf"
+                "reference": "de01e2926a7560c43fb763d86de134a52b46928b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/77110b6434e65b10b655ab92e645e830b1a79caf",
-                "reference": "77110b6434e65b10b655ab92e645e830b1a79caf",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/de01e2926a7560c43fb763d86de134a52b46928b",
+                "reference": "de01e2926a7560c43fb763d86de134a52b46928b",
                 "shasum": ""
             },
             "require": {
@@ -1375,7 +1375,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-03-17T14:08:55+00:00"
+            "time": "2020-03-20T18:11:43+00:00"
         },
         {
             "name": "laravel/passport",
@@ -3075,16 +3075,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.10.0",
+            "version": "v0.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "e361c8b7e5114534078e0ce04ddc442b39018a3c"
+                "reference": "573c2362c3cdebe846b4adae4b630eecb350afd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/e361c8b7e5114534078e0ce04ddc442b39018a3c",
-                "reference": "e361c8b7e5114534078e0ce04ddc442b39018a3c",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/573c2362c3cdebe846b4adae4b630eecb350afd8",
+                "reference": "573c2362c3cdebe846b4adae4b630eecb350afd8",
                 "shasum": ""
             },
             "require": {
@@ -3144,7 +3144,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2020-03-15T22:52:37+00:00"
+            "time": "2020-03-21T06:55:27+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -3557,11 +3557,17 @@
         },
         {
             "name": "sqware/auth",
-            "version": "dev-feature/laravel-7",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/squareborg/sqware-auth.git",
+                "reference": "d960f1d2fb234178a09a324ef86088e4ed5b001f"
+            },
             "dist": {
-                "type": "path",
-                "url": "../packages/sqware-auth",
-                "reference": "68459b584e29906304ff4ed6cccaf5fe5f06426b"
+                "type": "zip",
+                "url": "https://api.github.com/repos/squareborg/sqware-auth/zipball/d960f1d2fb234178a09a324ef86088e4ed5b001f",
+                "reference": "d960f1d2fb234178a09a324ef86088e4ed5b001f",
+                "shasum": ""
             },
             "require": {
                 "doctrine/dbal": "^2.9.2",
@@ -3587,9 +3593,11 @@
                 }
             },
             "description": "Passport OAuth, Social Login",
-            "transport-options": {
-                "symlink": true
-            }
+            "support": {
+                "source": "https://github.com/squareborg/sqware-auth/tree/0.0.1",
+                "issues": "https://github.com/squareborg/sqware-auth/issues"
+            },
+            "time": "2020-03-20T07:51:58+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -7189,9 +7197,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "sqware/auth": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
