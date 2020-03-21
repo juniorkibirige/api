@@ -16,6 +16,7 @@ abstract class TestCase extends BaseTestCase
         $this->artisan('migrate:fresh');
         $this->artisan('db:seed --class=OAuthClientSeeder');
         $this->artisan('db:seed --class=RolesAndPermissionsSeeder');
+        $this->artisan('db:seed --class=SettingsSeeder');
     }
 
     public function createLoggedInUser()

@@ -18,7 +18,7 @@ class Vendor extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'tagline', 'is_suspended'
+        'name', 'tagline', 'is_active', 'is_suspended'
     ];
 
     /**
@@ -27,6 +27,7 @@ class Vendor extends Model
      * @var array
      */
     protected $casts = [
+        'is_active' => 'boolean',
         'is_suspended' => 'boolean',
     ];
 
