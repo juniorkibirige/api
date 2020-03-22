@@ -1,5 +1,8 @@
 <?php
 
+
+
+
 // Open Routes
 Route::prefix('v1.0')->group(function() {
 

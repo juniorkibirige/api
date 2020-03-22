@@ -16,6 +16,14 @@ class VendorsController extends Controller
 {
 
     /**
+     * @OA\Get(
+     *     path="/vendors",
+     *     description="Home page",
+     *     @OA\Response(response="default", description="Welcome page")
+     * )
+     */
+
+    /**
      * List.
      *
      * @param Request $request
