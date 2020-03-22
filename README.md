@@ -1,6 +1,6 @@
 
-Vendor Machine
-==============
+🛒🤖 VendorMachine™
+===================
 A free and opensource multi vendor Marketplace
 --------------------------
 `CircleCI` ![Build Status](https://circleci.com/gh/squareborg/vendormachine-api.png?circle-token=:circle-token)
