@@ -1,4 +1,5 @@
 *
 !public/
 !.gitignore
-!ModuleData.csv
+!oauth-private.key.encrypted
+!oauth-public.key.encrypted
