@@ -59,6 +59,11 @@ class HerokuInstallKey extends Command
             return false;
         }
 
+        if(file_exists(storage_path('oauth-public.key')) || file_exists(storage_path('oauth-private.key'))) {
+            $this->error(sprintf('Refusing to overwrite existing keys'));
+            return false;
+        }
+
         $privateKey = file_get_contents(storage_path('app/oauth-private.key.encrypted'));
         file_put_contents(storage_path('oauth-private.key'), $this->oDecrypt($privateKey));
         chmod(storage_path('oauth-private.key'), 0600);
