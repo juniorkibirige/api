@@ -40,6 +40,15 @@ class HerokuInstallKey extends Command
      */
     public function handle()
     {
+        if (!env('OENCRYPT_KEY')) {
+            $this->error('No OENCRYPT_KEY env found!');
+            return false;
+        }
+        if (strlen(env('OENCRYPT_KEY')) < 64) {
+            $this->error('OENCRYPT_KEY too short');
+            return false;
+        }
+
         if(!file_exists(storage_path('app/oauth-private.key.encrypted'))) {
             $this->error(sprintf('Cannot find %s', storage_path('app/oauth-private.key.encrypted')));
             return false;

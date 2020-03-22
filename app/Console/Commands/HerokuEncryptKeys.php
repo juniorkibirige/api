@@ -41,6 +41,15 @@ class HerokuEncryptKeys extends Command
      */
     public function handle()
     {
+        if (!env('OENCRYPT_KEY')) {
+            $this->error('No OENCRYPT_KEY env found!');
+            return false;
+        }
+        if (strlen(env('OENCRYPT_KEY')) < 64) {
+            $this->error('OENCRYPT_KEY too short');
+            return false;
+        }
+
         if(!file_exists(storage_path('oauth-private.key'))) {
             $this->error(sprintf('Cannot find %s', storage_path('oauth-private.key')));
             return false;
@@ -61,14 +70,6 @@ class HerokuEncryptKeys extends Command
 
     private function oEncrypt($data)
     {
-        if (!env('OENCRYPT_KEY')) {
-            $this->error('No OENCRYPT_KEY env found!');
-            return false;
-        }
-        if (strlen(env('OENCRYPT_KEY')) < 64) {
-            $this->error('OENCRYPT_KEY too short');
-            return false;
-        }
         if (in_array(self::CIPHER, openssl_get_cipher_methods())) {
             return openssl_encrypt($data, self::CIPHER, env('OENCRYPT_KEY'), $options = 0, self::IV);
         } else {
