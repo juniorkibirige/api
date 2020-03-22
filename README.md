@@ -1,7 +1,11 @@
 
+Vendor Machine
+==============
 
-Tests: ![Build Status](https://circleci.com/gh/squareborg/vendormachine-api.png?circle-token=:circle-token)
+`CircleCI`: ![Build Status](https://circleci.com/gh/squareborg/vendormachine-api.png?circle-token=:circle-token)
 
-# Vendor Machine
+OpenAPI Documentation: https://vendormachine-api.herokuapp.com/api/documentation
 
 The start of a multi vendor marketplace written in Laravel
+
+
