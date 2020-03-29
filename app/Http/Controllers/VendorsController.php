@@ -32,7 +32,12 @@ class VendorsController extends Controller
     public function index(Request $request)
     {
         try {
-            $paginator = Vendor::paginate();
+            $query = Vendor::query();
+
+            if ($request->has('s')) {
+                $query->where('name', 'like', "%{$request->get('s')}%");
+            }
+            $paginator = $query->paginate();
             return fractal()
                 ->collection($paginator->items(), new VendorTransformer())
                 ->paginateWith(new IlluminatePaginatorAdapter($paginator));
