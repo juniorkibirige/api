@@ -6,6 +6,7 @@ use App\DTO\VendorData;
 use App\Http\Controllers\Controller;
 use App\Transformers\VendorTransformer;
 use App\Actions\vendors\CreateVendorAction;
+use App\Actions\vendors\UpdateVendorAction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
@@ -74,6 +75,32 @@ class VendorsController extends Controller
         try {
             $vendor = $createVendorAction(VendorData::fromRequest($request));
             return fractal()->item($vendor, new VendorTransformer())->respond(Response::HTTP_CREATED);
+        } catch (\Exception $e) {
+            abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
+        }
+    }
+
+
+    /**
+     * @OA\Put(
+     *     path="/vendors/{vendor}",
+     *     description="Updates a vendor",
+     *     @OA\Response(response="", description="")
+     * )
+     */
+
+    /**
+     * Update a resource in storage.
+     *
+     * @param Request $request
+     * @param UpdateVendorAction $createVendorAction
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Vendor $vendor, UpdateVendorAction $updateVendorAction)
+    {
+        try {
+            $vendor = $updateVendorAction(VendorData::fromRequest($request), $vendor);
+            return fractal()->item($vendor, new VendorTransformer())->respond(Response::HTTP_OK);
         } catch (\Exception $e) {
             abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
         }

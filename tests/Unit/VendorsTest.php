@@ -68,6 +68,22 @@ class ModulesTest extends TestCase
         ]);
 
     }
+
+    /** @test */
+
+    public function it_updates_a_vendor()
+    {
+        $user = $this->createApiUser();
+        $vendor = factory(Vendor::class)->create();
+        $vendor->name = 'Someother Name';
+        $response = $this->actingAs($user, 'api')->put(route('vendors.update', $vendor), $vendor->toArray());
+        $response->assertStatus(Response::HTTP_OK);
+        $this->assertDatabaseHas('vendors', [
+            'name' => 'Someother Name',
+            'id' => $vendor->id
+        ]);
+
+    }
 }
 
 
