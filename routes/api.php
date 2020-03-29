@@ -22,6 +22,7 @@ Route::prefix('v1.0')
 
     // Vendors
     Route::get('vendors', 'VendorsController@index')->name('vendors.index');
+    Route::get('vendors/{vendor}', 'VendorsController@show')->name('vendors.show');
     Route::post('vendors', 'VendorsController@store')->name('vendors.store');
     Route::post('vendors/{vendor}/products', 'Vendors\ProductsController@store')->name('products.store');
 

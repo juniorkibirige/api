@@ -32,7 +32,26 @@ class VendorsController extends Controller
     public function index(Request $request)
     {
         try {
-            return fractal()->collection(auth()->user()->vendors, new VendorTransformer());
+            $paginator = Vendor::paginate();
+            return fractal()
+                ->collection(Vendor::all(), new VendorTransformer())
+                ->paginateWith(new IlluminatePaginatorAdapter($paginator));
+        } catch (\Exception $e) {
+            abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
+        }
+    }
+
+    /**
+     * List.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request, Vendor $vendor)
+    {
+        try {
+            return fractal()
+                ->item($vendor, new VendorTransformer());
         } catch (\Exception $e) {
             abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
         }
