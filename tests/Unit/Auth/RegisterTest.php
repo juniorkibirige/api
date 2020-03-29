@@ -29,18 +29,6 @@ class RegisterTest extends TestCase
     }
 
     /** @test */
-    public function a_guest_must_provide_a_name()
-    {
-        $response = $this->json('POST', route('register'), [
-            'email' => 'user@vendormachine.test',
-            'password' => 'Password?1',
-            'password_confirmation' => 'Password?1'
-        ]);
-
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-    }
-
-    /** @test */
     public function a_guest_must_provide_a_valid_email()
     {
         $response = $this->json('POST', route('register'), [
