@@ -8,7 +8,7 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class UserData extends DataTransferObject
 {
-    /** @var string */
+    /** @var string|null */
     public $name;
 
     /** @var string */
