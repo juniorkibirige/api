@@ -34,7 +34,7 @@ class VendorsController extends Controller
         try {
             $paginator = Vendor::paginate();
             return fractal()
-                ->collection(Vendor::all(), new VendorTransformer())
+                ->collection($paginator->items(), new VendorTransformer())
                 ->paginateWith(new IlluminatePaginatorAdapter($paginator));
         } catch (\Exception $e) {
             abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
