@@ -18,6 +18,9 @@ final class CreateVendorAction
             'is_active' => (bool) $active,
         ]);
 
+        auth()->user()->assignRole('vendor');
+
+
         event(new VendorCreated($vendor));
         return $vendor;
     }

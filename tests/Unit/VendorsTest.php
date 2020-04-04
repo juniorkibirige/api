@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Vendor;
 
-class ModulesTest extends TestCase
+class VendorsTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -22,6 +22,7 @@ class ModulesTest extends TestCase
             'name' => $vendor->name
         ];
         $response = $this->actingAs($user, 'api')->post(route('vendors.store'), $data);
+
         $response->assertStatus(Response::HTTP_CREATED);
         $this->assertDatabaseHas('vendors', [
             'name' => $vendor->name,

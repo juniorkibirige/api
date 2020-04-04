@@ -16,6 +16,13 @@ return [
 
             ],
         ],
+        [
+            'name' => 'vendor',
+            'guard_name' => 'api',
+            'permissions' => [
+
+            ],
+        ],
 
     ],
 
