@@ -11,7 +11,7 @@ final class CreateProductAction
     public function __invoke(Vendor $vendor, array $data): Product
     {
         $product = $vendor->products()->create([
-            'title' => $data['title']
+            'name' => $data['name']
         ]);
 
         event(new ProductCreated($product));

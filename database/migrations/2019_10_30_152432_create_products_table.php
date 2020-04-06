@@ -16,7 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('vendor_id');
-            $table->string('title')->nullable();
+            $table->string('name')->nullable();
             $table->integer('price')->nullable();
             $table->timestamps();
         });

@@ -15,7 +15,7 @@ class ProductCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    protected $product;
+    public $product;
 
     /**
      * Create a new event instance.
