@@ -66,6 +66,6 @@ class VendorPolicy
      */
     public function owner(User $user, Vendor $vendor)
     {
-        return (int) $vendor->user_id === (int) $user->id;
+        return $vendor->user_id === $user->id;
     }
 }
