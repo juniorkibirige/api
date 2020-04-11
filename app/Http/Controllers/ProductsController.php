@@ -19,7 +19,7 @@ class ProductsController extends Controller
      * List.
      *
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Spatie\Fractal\Fractal
      */
     public function index(Request $request)
     {
@@ -28,11 +28,11 @@ class ProductsController extends Controller
         } else {
             $paginator = $request->user()->vendor->products()->paginate();
         }
-        try {
-            return fractal()->collection($paginator, new ProductTransformer())->paginateWith(new IlluminatePaginatorAdapter($paginator));
-        } catch (\Exception $e) {
-            abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
-        }
+
+        return fractal()
+            ->collection($paginator, new ProductTransformer())
+            ->paginateWith(new IlluminatePaginatorAdapter($paginator));
+
     }
 
 }
