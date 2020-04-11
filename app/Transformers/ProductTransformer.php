@@ -4,7 +4,6 @@ namespace App\Transformers;
 
 use App\Models\Product;
 use App\Models\User;
-use App\Models\Vendor;
 use League\Fractal\TransformerAbstract;
 
 class ProductTransformer extends TransformerAbstract
@@ -19,7 +18,7 @@ class ProductTransformer extends TransformerAbstract
     {
         return [
             'id' => $data->id,
-            'title' => $data->title,
+            'name' => $data->name,
             'vendor_id' => $data->vendor_id,
             'price' => "£".number_format(($data->price /100), 2, '.', ' ')
         ];
