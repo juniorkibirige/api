@@ -11,19 +11,16 @@ use App\Models\Vendor;
 
 class ProductsController extends Controller
 {
-
-
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
      * @param CreateProductAction $createProductAction
-     * @return \Spatie\Fractal\Fractal
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request, CreateProductAction $createProductAction, Vendor $vendor)
     {
             $product = $createProductAction($vendor, $request->all());
             return fractal()->item($product, new ProductTransformer())->respond(Response::HTTP_CREATED);
     }
-
 }
