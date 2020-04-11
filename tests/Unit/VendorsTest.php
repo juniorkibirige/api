@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Vendor;
+use App\Models\User;
 
 class VendorsTest extends TestCase
 {
@@ -88,7 +89,7 @@ class VendorsTest extends TestCase
     /** @test */
     public function a_user_cannot_update_a_vendor_they_do_not_own()
     {
-        $user = $this->createApiUser();
+        $user = factory(User::class)->create();
         $vendor = factory(Vendor::class)->create();
         $vendor->name = 'Someother Name';
         $response = $this->actingAs($user, 'api')->put(route('vendors.update', $vendor), $vendor->toArray());

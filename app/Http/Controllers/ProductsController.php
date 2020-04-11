@@ -23,7 +23,11 @@ class ProductsController extends Controller
      */
     public function index(Request $request)
     {
-        $paginator = Product::paginate();
+        if($request->user()->hasRole('admin')) {
+            $paginator = Product::paginate();
+        } else {
+            $paginator = $request->user()->vendor->products()->paginate();
+        }
         try {
             return fractal()->collection($paginator, new ProductTransformer())->paginateWith(new IlluminatePaginatorAdapter($paginator));
         } catch (\Exception $e) {
