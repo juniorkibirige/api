@@ -13,7 +13,7 @@ class VendorPolicy
     /**
      * Determine whether the user can create vendors.
      *
-     * @param  \App\User  $user
+     * @param User $user
      * @return mixed
      */
     public function create(User $user)
@@ -24,7 +24,7 @@ class VendorPolicy
     /**
      * Determine whether the user can view the vendor.
      *
-     * @param  \App\User $user
+     * @param User $user
      * @param Vendor $vendor
      * @return mixed
      */
@@ -36,7 +36,7 @@ class VendorPolicy
     /**
      * Determine whether the user can update the vendor.
      *
-     * @param  \App\User $user
+     * @param User $user
      * @param Vendor $vendor
      * @return mixed
      */
@@ -48,7 +48,7 @@ class VendorPolicy
     /**
      * Determine whether the user can delete the vendor.
      *
-     * @param  \App\User $user
+     * @param User $user
      * @param Vendor $vendor
      * @return mixed
      */

@@ -2,10 +2,9 @@
 
 namespace App\Notifications\Auth;
 
-use Cuhu\Auth\Models\PasswordReset;
+use Sqware\Auth\Models\PasswordReset;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class ForgotPasswordNotification extends Notification

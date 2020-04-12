@@ -3,7 +3,6 @@
 namespace App\Transformers;
 
 use App\Models\Product;
-use App\Models\User;
 use League\Fractal\TransformerAbstract;
 
 class ProductTransformer extends TransformerAbstract
@@ -11,7 +10,7 @@ class ProductTransformer extends TransformerAbstract
     /**
      * A Fractal transformer.
      *
-     * @param User $user
+     * @param Product $data
      * @return array
      */
     public function transform(Product $data)

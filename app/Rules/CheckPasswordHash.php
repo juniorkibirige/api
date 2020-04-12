@@ -12,7 +12,7 @@ class CheckPasswordHash implements Rule
     /**
      * Create a new rule instance.
      *
-     * @param $input
+     * @param string $input
      */
     public function __construct($input)
     {
