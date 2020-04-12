@@ -3,7 +3,7 @@
 namespace App\Models\Presenters;
 
 use Illuminate\Support\Facades\Storage;
-use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
 
 trait UserPresenter
 {
@@ -14,7 +14,7 @@ trait UserPresenter
 
     public function generateVerificationToken()
     {
-        return $this->update(['email_verify_token' => (string) Uuid::uuid4()]);
+        return $this->update(['email_verify_token' => Str::uuid()]);
     }
 
     public function avatarUrl()
