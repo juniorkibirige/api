@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Transformers\ProductTransformer;
 use App\Models\Product;
-use Illuminate\Http\Request;
-use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use App\DTO\Vendors\Products\ProductData;
+use App\Actions\Vendors\Products\UpdateProductAction;
 
 class ProductsController extends Controller
 {
@@ -35,6 +37,19 @@ class ProductsController extends Controller
             ->collection($paginator->items(), new ProductTransformer())
             ->paginateWith(new IlluminatePaginatorAdapter($paginator));
 
+    }
+
+     /**
+     * List.
+     *
+     * @param Request $request
+     * @param Product $product
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request, Product $product, UpdateProductAction $updateProductAction)
+    {
+        return fractal()->item($updateProductAction(ProductData::fromRequest($request), $product))
+            ->transformWith(new ProductTransformer)->respond();
     }
 
 }

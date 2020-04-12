@@ -82,6 +82,30 @@ class ProductsTest extends TestCase
         $data = $response->json()['data'];
         $this->assertCount(15, $data);
     }
+
+    /** @test */
+    public function it_updates_a_product()
+    {
+        $product = factory(Product::class)->create(['name' => 'Old Name']);
+        $product['name'] = 'The New Name';
+        $response = $this->actingAs($product->vendor->user, 'api')
+            ->put(route('products.update', $product), $product->toArray())
+            ->assertOk();
+        $this->assertDatabaseHas('products', ['id' => $product->id, 'name' => 'The New Name']);
+    }
+
+    /** @test */
+    public function it_does_not_update_a_product_you_do_not_own()
+    {
+        $user = $this->createApiUser();
+        $product = factory(Product::class)->create(['name' => 'Old Name']);
+        $product['name'] = 'The New Name';
+        $response = $this->actingAs($user, 'api')
+            ->put(route('products.update', $product), $product->toArray())
+            ->assertForbidden();
+        $this->assertDatabaseMissing('products', ['id' => $product->id, 'name' => 'The New Name']);
+    }
+    
 }
 
 
