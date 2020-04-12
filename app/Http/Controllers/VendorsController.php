@@ -61,7 +61,7 @@ class VendorsController extends Controller
      *
      * @param Request $request
      * @param CreateVendorAction $createVendorAction
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request, CreateVendorAction $createVendorAction)
     {
@@ -79,10 +79,10 @@ class VendorsController extends Controller
      */
 
     /**
-     * Update a resource in storage.
+     * Update a resource in storage.ass
      *
      * @param Request $request
-     * @param UpdateVendorAction $createVendorAction
+     * @param UpdateVendorAction $updateVendorAction
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Vendor $vendor, UpdateVendorAction $updateVendorAction)

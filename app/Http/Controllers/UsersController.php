@@ -23,27 +23,24 @@ class UsersController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        try {
-            $query = User::query();
+        $query = User::query();
 
-            if ($request->has('s')) {
-                $query->where('name', 'like', "%{$request->get('s')}%")
-                    ->orWhere('email', 'like', "%{$request->get('s')}%");
-            }
-
-            $paginator = $query->latest()->paginate(self::PAGINATION_LIMIT);
-            $users = $paginator->items();
-
-            return fractal()->collection($users, new UserTransformer())
-                ->parseIncludes(['roles'])
-                ->paginateWith(new IlluminatePaginatorAdapter($paginator));
-        } catch (\Exception $e) {
-            abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
+        if ($request->has('s')) {
+            $query->where('name', 'like', "%{$request->get('s')}%")
+                ->orWhere('email', 'like', "%{$request->get('s')}%");
         }
+
+        $paginator = $query->latest()->paginate(self::PAGINATION_LIMIT);
+
+        return fractal()->collection($paginator->items(), new UserTransformer())
+            ->parseIncludes(['roles'])
+            ->paginateWith(new IlluminatePaginatorAdapter($paginator))
+            ->respond();
+
     }
 
     /**
@@ -51,106 +48,79 @@ class UsersController extends Controller
      *
      * @param Request $request
      * @param CreateUserAction $createUserAction
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request, CreateUserAction $createUserAction)
     {
-        try {
-            $user = $createUserAction(UserData::fromRequest($request));
-            return fractal()->item($user, new UserTransformer());
-        } catch (\Exception $e) {
-            abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
-        }
+        return fractal()
+            ->item($createUserAction(UserData::fromRequest($request)), new UserTransformer())->respond();
     }
 
     /**
      * Display the specified resource.
      *
      * @param User $user
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(User $user)
     {
-        try {
-            return fractal()->item($user, new UserTransformer())
-                ->parseIncludes(['roles', 'sites']);
-        } catch (\Exception $e) {
-            abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
-        }
+        return fractal()->item($user, new UserTransformer())
+            ->parseIncludes(['roles', 'sites'])->respond();
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UpdateRequest $request
      * @param User $user
      * @param UpdateUserAction $updateUserAction
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateRequest $request, User $user, UpdateUserAction $updateUserAction)
     {
-        try {
-            if (! $request->has('email')) {
-                $request->request->add(['email' => $user->email]);
-            }
-            $user = $updateUserAction($user, UserData::fromRequest($request));
-            return fractal()->item($user, new UserTransformer());
-        } catch (\Exception $e) {
-            abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
+        if (! $request->has('email')) {
+            $request->request->add(['email' => $user->email]);
         }
+        $user = $updateUserAction($user, UserData::fromRequest($request));
+        return fractal()->item($user, new UserTransformer())->respond();
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
      * @param User $user
-     * @param DeleteUserAction $updateUserAction
+     * @param DeleteUserAction $deleteUserAction
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, User $user, DeleteUserAction $deleteUserAction)
+    public function destroy(User $user, DeleteUserAction $deleteUserAction)
     {
-        try {
-            $deleteUserAction($user);
-            return response()->json(null, Response::HTTP_NO_CONTENT);
-        } catch (\Exception $e) {
-            abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
-        }
+        $deleteUserAction($user);
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 
     /**
      * Suspend the user.
      *
-     * @param Request $request
      * @param User $user
-     * @param SuspendUserAction $updateUserAction
-     * @return \Illuminate\Http\Response
+     * @param SuspendUserAction $suspendUserAction
+     * @return \Illuminate\Http\JsonResponse
      */
     public function suspend(User $user, SuspendUserAction $suspendUserAction)
     {
-        try {
-            $user = $suspendUserAction($user);
-            return fractal()->item($user, new UserTransformer());
-        } catch (\Exception $e) {
-            abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
-        }
+        $user = $suspendUserAction($user);
+        return fractal()->item($user, new UserTransformer())->respond();
     }
 
     /**
      * Unsuspend the user
      *
-     * @param Request $request
      * @param User $user
-     * @param UnuspendUserAction $updateUserAction
-     * @return \Illuminate\Http\Response
+     * @param UnsuspendUserAction $unsuspendUserAction
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function unsuspend(User $user, UnsuspendUserAction $unuspendUserAction)
+    public function unsuspend(User $user, UnsuspendUserAction $unsuspendUserAction)
     {
-        try {
-            $user = $unuspendUserAction($user);
-            return fractal()->item($user, new UserTransformer());
-        } catch (\Exception $e) {
-            abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
-        }
+        $user = $unsuspendUserAction($user);
+        return fractal()->item($user, new UserTransformer())->respond();
     }
 }

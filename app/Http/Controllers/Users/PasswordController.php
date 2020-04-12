@@ -14,11 +14,7 @@ class PasswordController extends Controller
 {
     public function __invoke(PasswordRequest $request, UpdatePasswordAction $updatePasswordAction)
     {
-        try {
-            $updatePasswordAction($request->user(), PasswordData::fromRequest($request));
-            return response()->json(null, Response::HTTP_OK);
-        } catch (\Exception $e) {
-            abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
-        }
+        $updatePasswordAction($request->user(), PasswordData::fromRequest($request));
+        return response(null, Response::HTTP_OK);
     }
 }
