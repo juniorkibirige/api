@@ -28,39 +28,32 @@ class VendorsController extends Controller
      * List.
      *
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        try {
-            $query = Vendor::query();
+        $query = Vendor::query();
 
-            if ($request->has('s')) {
-                $query->where('name', 'like', "%{$request->get('s')}%");
-            }
-            $paginator = $query->paginate();
-            return fractal()
-                ->collection($paginator->items(), new VendorTransformer())
-                ->paginateWith(new IlluminatePaginatorAdapter($paginator));
-        } catch (\Exception $e) {
-            abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
+        if ($request->has('s')) {
+            $query->where('name', 'like', "%{$request->get('s')}%");
         }
+        $paginator = $query->paginate();
+        return fractal()
+            ->collection($paginator->items(), new VendorTransformer())
+            ->paginateWith(new IlluminatePaginatorAdapter($paginator))
+            ->respond();
+       
     }
 
     /**
      * List.
      *
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Request $request, Vendor $vendor)
     {
-        try {
-            return fractal()
-                ->item($vendor, new VendorTransformer());
-        } catch (\Exception $e) {
-            abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
-        }
+        return fractal()->item($vendor, new VendorTransformer())->respond();
     }
 
     /**
@@ -72,12 +65,8 @@ class VendorsController extends Controller
      */
     public function store(Request $request, CreateVendorAction $createVendorAction)
     {
-        try {
-            $vendor = $createVendorAction(VendorData::fromRequest($request));
-            return fractal()->item($vendor, new VendorTransformer())->respond(Response::HTTP_CREATED);
-        } catch (\Exception $e) {
-            abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
-        }
+        $vendor = $createVendorAction(VendorData::fromRequest($request));
+        return fractal()->item($vendor, new VendorTransformer())->respond(Response::HTTP_CREATED);
     }
 
 
@@ -94,16 +83,12 @@ class VendorsController extends Controller
      *
      * @param Request $request
      * @param UpdateVendorAction $createVendorAction
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Vendor $vendor, UpdateVendorAction $updateVendorAction)
     {
-        try {
             $vendor = $updateVendorAction(VendorData::fromRequest($request), $vendor);
-            return fractal()->item($vendor, new VendorTransformer())->respond(Response::HTTP_OK);
-        } catch (\Exception $e) {
-            abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
-        }
+            return fractal()->item($vendor, new VendorTransformer())->respond();
     }
 
 }
