@@ -19,14 +19,20 @@ class ProductsController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->user()->hasRole('admin')) {
-            $paginator = Product::paginate();
-        } else {
-            $paginator = $request->user()->vendor->products()->paginate();
+
+        $query = Product::query();
+        
+        if ($request->has('s')) {
+            $query->where('name', 'like', "%{$request->get('s')}%");
+        }
+        if(! $request->user()->hasRole('admin')) {
+            $query->where('vendor_id', '=', $request->user()->vendor->id);
         }
 
+        $paginator = $query->paginate();
+        
         return fractal()
-            ->collection($paginator, new ProductTransformer())
+            ->collection($paginator->items(), new ProductTransformer())
             ->paginateWith(new IlluminatePaginatorAdapter($paginator));
 
     }
