@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-use App\Models\User;
 use App\Models\Vendor;
 use League\Fractal\TransformerAbstract;
 
@@ -11,7 +10,7 @@ class VendorTransformer extends TransformerAbstract
     /**
      * A Fractal transformer.
      *
-     * @param User $user
+     * @param Vendor $vendor
      * @return array
      */
     public function transform(Vendor $vendor)
