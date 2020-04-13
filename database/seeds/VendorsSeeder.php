@@ -19,7 +19,5 @@ class VendorsSeeder extends Seeder
                 'vendor_id' => $vendor->id
             ]);
         });
-        Vendor::first()->update(['user_id' => User::where('email', 'user@vendormachine.test')->first()->id]);
-
     }
 }
