@@ -19,7 +19,7 @@ class ProductTransformer extends TransformerAbstract
             'id' => $data->id,
             'name' => $data->name,
             'vendor_id' => $data->vendor_id,
-            'price' => "£".number_format(($data->price /100), 2, '.', ' ')
+            'price' => "$data->price",
         ];
     }
 }
