@@ -39,6 +39,11 @@ class ProductsController extends Controller
 
     }
 
+    public function show(Product $product)
+    {
+        return fractal()->item($product, new ProductTransformer)->respond();
+    }
+
      /**
      * List.
      *

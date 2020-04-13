@@ -30,6 +30,7 @@ Route::prefix('v1.0')
     // Products
 
     Route::get('products', 'ProductsController@index')->name('products.index');
+    Route::get('products/{product}', 'ProductsController@show')->name('products.show')->middleware('can:owner,product');
     Route::put('products/{product}', 'ProductsController@update')->name('products.update')->middleware('can:owner,product');
 });
 

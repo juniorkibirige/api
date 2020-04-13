@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Vendor;
+use App\Transformers\ProductTransformer;
 
 class ProductsTest extends TestCase
 {
@@ -105,6 +106,26 @@ class ProductsTest extends TestCase
             ->assertForbidden();
         $this->assertDatabaseMissing('products', ['id' => $product->id, 'name' => 'The New Name']);
     }
+
+    /** @test */
+    public function it_shows_a_single_product()
+    {
+        $product = factory(Product::class)->create();
+        $transformed = fractal()->item($product, new ProductTransformer)->toArray();
+        $this->actingAs($product->vendor->user, 'api')
+            ->get(route('products.show', $product))
+            ->assertOk()->assertJsonFragment($transformed);
+    }
+
+    /** @test */
+    public function it_does_not_show_a_single_product_to_non_owner()
+    {
+        $product = factory(Product::class)->create();
+        $this->actingAs($this->createApiUser(), 'api')
+            ->get(route('products.show', $product))
+            ->assertForbidden();
+    }
+    
     
 }
 
