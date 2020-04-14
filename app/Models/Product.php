@@ -16,7 +16,7 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'vendor_id'
+        'description', 'name', 'price', 'vendor_id'
     ];
 
     public function vendor()

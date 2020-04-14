@@ -18,6 +18,7 @@ class ProductTransformer extends TransformerAbstract
         return [
             'id' => $data->id,
             'name' => $data->name,
+            'description' => $data->description,
             'vendor_id' => $data->vendor_id,
             'price' => "$data->price",
         ];
