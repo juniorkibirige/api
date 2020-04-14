@@ -23,11 +23,8 @@ class ProductsTest extends TestCase
 
         $vendor = factory(Vendor::class)->create();
         $product = factory(Product::class)->make();
-        $data = [
-            'name' => $product->name
-        ];
 
-        $response = $this->actingAs($vendor->user, 'api')->post(route('products.store', $vendor), $data);
+        $response = $this->actingAs($vendor->user, 'api')->post(route('products.store', $vendor), $product->toArray());
 
         $response->assertStatus(Response::HTTP_CREATED);
         $this->assertDatabaseHas('products', [
