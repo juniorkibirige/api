@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Events\ProductCreated;
-use App\Models\Product;
+use App\Models\Products\Product;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,9 +23,9 @@ class ProductsTest extends TestCase
 
         $vendor = factory(Vendor::class)->create();
         $product = factory(Product::class)->make();
+        $product['price'] = random_int(100,10000);
 
         $response = $this->actingAs($vendor->user, 'api')->post(route('products.store', $vendor), $product->toArray());
-
         $response->assertStatus(Response::HTTP_CREATED);
         $this->assertDatabaseHas('products', [
             'name' => $product->name,
@@ -61,7 +61,7 @@ class ProductsTest extends TestCase
             'vendor_id' => $otherVendor->id
         ]);
         $vendor = factory(Vendor::class)->create();
-        
+
         $response = $this->actingAs($vendor->user, 'api')->get(route('products.index'));
         $data = $response->json()['data'];
         foreach($data as $product) {
@@ -75,7 +75,7 @@ class ProductsTest extends TestCase
     {
         $admin = $this->createAdminApiUser();
         factory(Product::class,15)->create();
-                
+
         $response = $this->actingAs($admin, 'api')->get(route('products.index'));
         $data = $response->json()['data'];
         $this->assertCount(15, $data);
@@ -122,8 +122,8 @@ class ProductsTest extends TestCase
             ->get(route('products.show', $product))
             ->assertForbidden();
     }
-    
-    
+
+
 }
 
 

@@ -6,7 +6,7 @@ use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Transformers\ProductTransformer;
-use App\Models\Product;
+use App\Models\Products\Product;
 use App\DTO\Vendors\Products\ProductData;
 use App\Actions\Vendors\Products\UpdateProductAction;
 
@@ -23,7 +23,7 @@ class ProductsController extends Controller
     {
 
         $query = Product::query();
-        
+
         if ($request->has('s')) {
             $query->where('name', 'like', "%{$request->get('s')}%");
         }
@@ -32,7 +32,7 @@ class ProductsController extends Controller
         }
 
         $paginator = $query->paginate();
-        
+
         return fractal()
             ->collection($paginator->items(), new ProductTransformer())
             ->paginateWith(new IlluminatePaginatorAdapter($paginator));

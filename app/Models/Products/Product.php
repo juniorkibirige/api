@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Products;
 
 use Sqware\Auth\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
+use App\Models\Vendor;
 
 class Product extends Model
 {
@@ -16,7 +16,11 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'description', 'name', 'price', 'vendor_id'
+        'description',
+        'name',
+        'price',
+        'sku',
+        'vendor_id',
     ];
 
     public function vendor()
@@ -24,5 +28,8 @@ class Product extends Model
         return $this->belongsTo(Vendor::class);
     }
 
-
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
 }

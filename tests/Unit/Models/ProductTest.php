@@ -14,7 +14,7 @@ class ProductTest extends TestCase
     public function basic_test()
     {
         $random = Str::random(10);
-        $product = factory('App\Models\Product')->create([
+        $product = factory('App\Models\Products\Product')->create([
             'name' => $random
         ]);
         $this->assertEquals($random, $product->name);

@@ -3,7 +3,7 @@
 namespace App\Actions\vendors;
 
 use App\Models\Vendor;
-use App\Models\Product;
+use App\Models\Products\Product;
 use App\Events\ProductCreated;
 
 final class CreateProductAction
@@ -13,6 +13,9 @@ final class CreateProductAction
         $product = $vendor->products()->create([
             'name' => $data['name'],
             'description' => $data['description'],
+        ]);
+
+        $product->variants()->create([
             'price' => $data['price']
         ]);
 

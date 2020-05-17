@@ -5,6 +5,7 @@ namespace App\Models;
 use Sqware\Auth\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Products\Product;
 
 class Vendor extends Model
 {

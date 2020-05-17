@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Vendor;
-use App\Models\Product;
+use App\Models\Products\Product;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ProductPolicy

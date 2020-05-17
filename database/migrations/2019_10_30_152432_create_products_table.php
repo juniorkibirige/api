@@ -18,7 +18,6 @@ class CreateProductsTable extends Migration
             $table->uuid('vendor_id');
             $table->string('name')->nullable();
             $table->text('description')->nullable();
-            $table->integer('price')->nullable();
             $table->timestamps();
         });
     }

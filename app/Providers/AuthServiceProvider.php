@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use App\Models\Product;
+use App\Models\Products\Product;
 use App\Models\Vendor;
 use App\Policies\ProductPolicy;
 use App\Policies\VendorPolicy;
