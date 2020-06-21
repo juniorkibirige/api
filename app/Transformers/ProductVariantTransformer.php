@@ -3,31 +3,27 @@
 namespace App\Transformers;
 
 use App\Models\Products\Product;
+use App\Models\Products\ProductVariant;
 use League\Fractal\TransformerAbstract;
 
-class ProductTransformer extends TransformerAbstract
+class ProductVariantTransformer extends TransformerAbstract
 {
-
-    protected $defaultIncludes = ['variants'];
-
     /**
      * A Fractal transformer.
      *
      * @param Product $data
      * @return array
      */
-    public function transform(Product $data)
+    public function transform(ProductVariant $data)
     {
+        return $data->toArray();
         return [
             'id' => $data->id,
             'name' => $data->name,
             'description' => $data->description,
             'vendor_id' => $data->vendor_id,
+            'price' => $data->price,
+            'formatted_price' => '£' . number_format($data->price / 100, 2)
         ];
-    }
-
-    public function includeVariants(Product $data)
-    {
-        return $this->collection($data->variants, new ProductVariantTransformer);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTO\Vendors\Products;
+namespace App\DTO\Products;
 
 use Spatie\DataTransferObject\DataTransferObject;
 use Illuminate\Http\Request;
@@ -16,12 +16,17 @@ class ProductData extends DataTransferObject
     /** @var int|null */
     public $price;
 
+    /** @var array|null */
+    public $variants;
+
+
     public static function fromRequest(Request $request)
     {
         return new self([
             'name' => $request->get('name'),
             'description' => $request->get('description'),
-            'price' => $request->get('price')
+            'price' => $request->get('price'),
+            'variants' => $request->get('variants'),
         ]);
     }
 }

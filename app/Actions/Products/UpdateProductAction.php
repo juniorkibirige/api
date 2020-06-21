@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Actions\Vendors\Products;
+namespace App\Actions\Products;
 
-use App\DTO\Vendors\Products\ProductData;
+use App\DTO\Products\ProductData;
 use App\Models\Products\Product;
 use App\Events\Vendors\Products\ProductUpdated;
 
@@ -14,8 +14,8 @@ final class UpdateProductAction
             'name' => $productData->name,
             'description' => $productData->description
         ]);
-        $product->variants()->first([
-            'price' => $productData->price
+        $product->variants()->first()->update([
+            'price' => $productData->variants['data'][0]['price']
         ]);
         event(new ProductUpdated($product));
         return $product->refresh();

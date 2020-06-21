@@ -25,13 +25,13 @@ Route::prefix('v1.0')
     Route::get('vendors/{vendor}', 'VendorsController@show')->name('vendors.show');
     Route::post('vendors', 'VendorsController@store')->name('vendors.store');
     Route::put('vendors/{vendor}', 'VendorsController@update')->name('vendors.update')->middleware('can:owner,vendor');
-    Route::post('vendors/{vendor}/products', 'Vendors\ProductsController@store')->name('products.store');
 
     // Products
 
-    Route::get('products', 'ProductsController@index')->name('products.index');
-    Route::get('products/{product}', 'ProductsController@show')->name('products.show')->middleware('can:owner,product');
-    Route::put('products/{product}', 'ProductsController@update')->name('products.update')->middleware('can:owner,product');
+    Route::get('products', 'Products\ProductsController@index')->name('products.index');
+    Route::post('products', 'Products\ProductsController@store')->name('products.store');
+    Route::get('products/{product}', 'Products\ProductsController@show')->name('products.show')->middleware('can:owner,product');
+    Route::put('products/{product}', 'Products\ProductsController@update')->name('products.update')->middleware('can:owner,product');
 });
 
 // Admin Routes

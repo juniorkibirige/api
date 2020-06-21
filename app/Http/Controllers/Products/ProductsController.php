@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Products;
 
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Transformers\ProductTransformer;
 use App\Models\Products\Product;
-use App\DTO\Vendors\Products\ProductData;
-use App\Actions\Vendors\Products\UpdateProductAction;
+use App\DTO\Products\ProductData;
+use App\Actions\Products\UpdateProductAction;
+use App\Actions\Products\CreateProductAction;
 
 class ProductsController extends Controller
 {
@@ -42,6 +44,19 @@ class ProductsController extends Controller
     public function show(Product $product)
     {
         return fractal()->item($product, new ProductTransformer)->respond();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @param CreateProductAction $createProductAction
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(Request $request, CreateProductAction $createProductAction)
+    {
+        $product = $createProductAction($request->all());
+        return fractal()->item($product, new ProductTransformer())->respond(Response::HTTP_CREATED);
     }
 
      /**
