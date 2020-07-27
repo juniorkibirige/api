@@ -19,6 +19,8 @@ class CreateProductsTable extends Migration
             $table->string('name')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
+
+            $table->foreign('vendor_id')->references('id')->on('vendors')->cascadeOnDelete();
         });
     }
 

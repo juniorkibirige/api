@@ -18,10 +18,10 @@ class CreateProductAttributeInstancesTable extends Migration
             $table->uuid('product_attribute_id');
             $table->uuid('product_variant_id');
             $table->string('value')->nullable();
-
-            $table->foreign('product_attribute_id')->references('id')->on('product_attributes');
-            $table->foreign('product_variant_id')->references('id')->on('product_variants');
             $table->timestamps();
+
+            $table->foreign('product_attribute_id')->references('id')->on('product_attributes')->cascadeOnDelete();
+            $table->foreign('product_variant_id')->references('id')->on('product_variants')->cascadeOnDelete();
         });
     }
 

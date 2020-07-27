@@ -16,11 +16,11 @@ class CreateProductVariantsTable extends Migration
         Schema::create('product_variants', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->integer('price');
-            $table->uuid('product_id');
+            $table->uuid('product_id')->nullable();
             $table->string('sku', 100)->nullable();
             $table->timestamps();
 
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete();
 
         });
     }

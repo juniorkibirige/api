@@ -22,6 +22,9 @@ class CreateVendorsTable extends Migration
             $table->boolean('is_suspended')->default(false);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+
         });
     }
 
