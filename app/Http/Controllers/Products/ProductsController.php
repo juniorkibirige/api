@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Products;
 
+use App\Exceptions\Vendor\ManageProductsPermissionDeniedException;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
@@ -55,7 +56,14 @@ class ProductsController extends Controller
      */
     public function store(Request $request, CreateProductAction $createProductAction)
     {
-        $product = $createProductAction($request->all());
+        $payload = [
+            'user_id' => $request->user()->id,
+        ];
+        try {
+            $product = $createProductAction($request->merge($payload)->all());
+        } catch (ManageProductsPermissionDeniedException $exception) {
+            return response()->json(['message' => 'Permission denied'], Response::HTTP_FORBIDDEN);
+        }
         return fractal()->item($product, new ProductTransformer())->respond(Response::HTTP_CREATED);
     }
 

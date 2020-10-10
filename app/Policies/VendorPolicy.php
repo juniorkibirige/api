@@ -68,4 +68,9 @@ class VendorPolicy
     {
         return $vendor->user_id === $user->id;
     }
+
+    public function manageProducts(User $user, Vendor $vendor)
+    {
+        return $user->can('owner', $vendor);
+    }
 }

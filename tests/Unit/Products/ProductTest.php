@@ -22,9 +22,10 @@ class ProductsTest extends TestCase
         Event::fake('App\Events\ProductCreated');
 
         $vendor = factory(Vendor::class)->create();
-        $product = factory(Product::class)->make();
+        $product = factory(Product::class)->make([
+            'vendor_id' => $vendor->id,
+        ]);
         $product['price'] = random_int(100,10000);
-
         $response = $this->actingAs($vendor->user, 'api')->post(route('products.store', $vendor), $product->toArray());
         $response->assertStatus(Response::HTTP_CREATED);
         $this->assertDatabaseHas('products', [
@@ -34,6 +35,23 @@ class ProductsTest extends TestCase
         Event::assertDispatched(ProductCreated::class, function ($e) use ($response) {
         return $e->product->id === $response->json()['id'];
         });
+    }
+
+    /** @test */
+    public function it_does_not_stores_a_product_if_you_cannot_manage_products_on_vendor()
+    {
+        Event::fake('App\Events\ProductCreated');
+
+        $vendor = factory(Vendor::class)->create();
+        $product = factory(Product::class)->make();
+        $product['price'] = random_int(100,10000);
+        $response = $this->actingAs($vendor->user, 'api')->post(route('products.store', $vendor), $product->toArray());
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+        $this->assertDatabaseMissing('products', [
+            'name' => $product->name,
+            'vendor_id' => $vendor->id
+        ]);
+        Event::assertNotDispatched(ProductCreated::class);
     }
 
     /** @test */
@@ -122,8 +140,6 @@ class ProductsTest extends TestCase
             ->get(route('products.show', $product))
             ->assertForbidden();
     }
-
-
 }
 
 
